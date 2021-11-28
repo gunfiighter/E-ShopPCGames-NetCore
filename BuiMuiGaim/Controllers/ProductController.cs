@@ -1,5 +1,6 @@
 ﻿using BuiMuiGaim.Data;
 using BuiMuiGaim.Models;
+using BuiMuiGaim.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -35,27 +36,39 @@ namespace BuiMuiGaim.Controllers
         //Get - Upsert
         public IActionResult Upsert(int? id)
         {
-            IEnumerable<SelectListItem> CategoryDropDown = _db.Category.Select(x => new SelectListItem
+            //IEnumerable<SelectListItem> CategoryDropDown = _db.Category.Select(x => new SelectListItem
+            //{
+            //    Text = x.Name,
+            //    Value = x.CategoryId.ToString()
+            //});
+
+            //ViewBag.CategoryDropDown = CategoryDropDown;
+
+            //Product product = new Product();
+
+            ProductVM productVM = new ProductVM
             {
-                Text = x.Name,
-                Value = x.CategoryId.ToString()
-            });
+                Product = new Product(),
+                CategorySelectList = _db.Category.Select(x =>
+                new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.CategoryId.ToString()
+                    })
+            };
 
-            ViewBag.CategoryDropDown = CategoryDropDown;
-
-            Product product = new Product();
             if(id == null)
             {
-                return View(product);
+                return View(productVM);
             }
             else
             {
-                product = _db.Product.Find(id);
-                if(product == null)
+                productVM.Product = _db.Product.Find(id);
+                if(productVM.Product == null)
                 {
                     return NotFound();
                 }
-                return View(product);
+                return View(productVM);
             }
         }
 
