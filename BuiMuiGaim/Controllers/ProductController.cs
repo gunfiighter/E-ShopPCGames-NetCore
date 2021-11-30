@@ -33,8 +33,6 @@ namespace BuiMuiGaim.Controllers
                 obj.Category = _db.Category.FirstOrDefault(x => x.CategoryId == obj.CategoryId);
             }
 
-
-
             return View(objList);
         }
 
@@ -101,9 +99,7 @@ namespace BuiMuiGaim.Controllers
 
                     productVM.Product.Image = fileName + extension;
 
-                    _db.Product.Add(productVM.Product);
-                    
-
+                    _db.Product.Add(productVM.Product);                    
                 }
                 else
                 {
@@ -140,7 +136,13 @@ namespace BuiMuiGaim.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View();
+
+            productVM.CategorySelectList = _db.Category.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.CategoryId.ToString()
+            });
+            return View(productVM);
         }
 
 
@@ -151,26 +153,37 @@ namespace BuiMuiGaim.Controllers
             {
                 return NotFound();
             }
-            //поиск по первичному ключу
-            var obj = _db.Category.Find(id);
-            if (obj == null)
+
+            //Include - Eager Loading
+            Product product = _db.Product.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(obj);
+            return View(product);
         }
 
         //POST - DELETE
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? categoryId)
+        public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Category.Find(categoryId);
-            if(obj == null)
+            var objFromDb = _db.Product.FirstOrDefault(x => x.Id == id);
+            if (objFromDb == null)
             {
                 return NotFound();
             }
-            _db.Category.Remove(obj);
+
+            string upload = _webHostEnvironment.WebRootPath + WC.ImagePath;
+
+            var oldFile = Path.Combine(upload, objFromDb.Image);
+
+            if (System.IO.File.Exists(oldFile))
+            {
+                System.IO.File.Delete(oldFile);               
+            }
+
+            _db.Product.Remove(objFromDb);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
