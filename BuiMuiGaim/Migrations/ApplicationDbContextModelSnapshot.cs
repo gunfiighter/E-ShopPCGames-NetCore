@@ -60,6 +60,9 @@ namespace BuiMuiGaim.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ApplicationTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -77,7 +80,12 @@ namespace BuiMuiGaim.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ShortDesc")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationTypeId");
 
                     b.HasIndex("CategoryId");
 
@@ -86,11 +94,19 @@ namespace BuiMuiGaim.Migrations
 
             modelBuilder.Entity("BuiMuiGaim.Models.Product", b =>
                 {
+                    b.HasOne("BuiMuiGaim.Models.ApplicationType", "ApplicationType")
+                        .WithMany()
+                        .HasForeignKey("ApplicationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BuiMuiGaim.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationType");
 
                     b.Navigation("Category");
                 });

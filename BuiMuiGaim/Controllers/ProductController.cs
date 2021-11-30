@@ -26,12 +26,7 @@ namespace BuiMuiGaim.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objList = _db.Product;
-
-            foreach(var obj in objList)
-            {
-                obj.Category = _db.Category.FirstOrDefault(x => x.CategoryId == obj.CategoryId);
-            }
+            IEnumerable<Product> objList = _db.Product.Include(x => x.Category).Include(x => x.ApplicationType);
 
             return View(objList);
         }
@@ -39,16 +34,6 @@ namespace BuiMuiGaim.Controllers
         //Get - Upsert
         public IActionResult Upsert(int? id)
         {
-            //IEnumerable<SelectListItem> CategoryDropDown = _db.Category.Select(x => new SelectListItem
-            //{
-            //    Text = x.Name,
-            //    Value = x.CategoryId.ToString()
-            //});
-
-            //ViewBag.CategoryDropDown = CategoryDropDown;
-
-            //Product product = new Product();
-
             ProductVM productVM = new ProductVM
             {
                 Product = new Product(),
@@ -57,7 +42,14 @@ namespace BuiMuiGaim.Controllers
                     {
                         Text = x.Name,
                         Value = x.CategoryId.ToString()
-                    })
+                    }),
+                ApplicationTypeSelectList = _db.ApplicationType.Select(x =>
+                    new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    }
+                )
             };
 
             if(id == null)
@@ -142,6 +134,13 @@ namespace BuiMuiGaim.Controllers
                 Text = x.Name,
                 Value = x.CategoryId.ToString()
             });
+            productVM.ApplicationTypeSelectList = _db.ApplicationType.Select(x =>
+                new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }
+            );
             return View(productVM);
         }
 
@@ -155,7 +154,7 @@ namespace BuiMuiGaim.Controllers
             }
 
             //Include - Eager Loading
-            Product product = _db.Product.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+            Product product = _db.Product.Include(x => x.Category).Include(x => x.ApplicationType).FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();

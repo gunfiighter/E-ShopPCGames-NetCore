@@ -16,6 +16,8 @@
 *.sln.docstates
 
 Rocky Snippets
+BuiMuiGaim/wwwroot/images/product
+BuiMuiGaim/Migrations/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
