@@ -1,6 +1,7 @@
 ﻿using BuiMuiGaim.Data;
 using BuiMuiGaim.Models;
 using BuiMuiGaim.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _db;
