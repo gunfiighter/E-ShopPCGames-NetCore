@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<BuiMuiGaim_Models.ApplicationType>
 
-<div class="container p-3">
+<div class="container p-3 bg-white">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Category List</h2>
+            <h2 class="text-primary">Application Type List</h2>
         </div>
 
         <div class="col-6 text-right">
@@ -17,7 +17,7 @@
 
     @if(Model.Count() > 0)
             {
-                <table class="table table-bordered" table-stripped" style="width:100%">
+                <table class="table table-bordered table-stripped" style="width:100%">
                     <thead>
                         <tr>
                             <th>
@@ -30,7 +30,6 @@
                 {
                         <tr>
                             <td width="50%">@obj.Name</td>
-                            <td></td>
                             <td class="text-center">
                                 <div class="w-75 btn-group" role="group">
                                     <a asp-controller="ApplicationType" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary mx-2">
