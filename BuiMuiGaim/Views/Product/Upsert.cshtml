@@ -1,6 +1,6 @@
 ﻿@model BuiMuiGaim.Models.ViewModels.ProductVM
-
-@{ 
+@using BuiMuiGaim_Utility
+@{
     var title = "Create Product";
 }
 
@@ -109,8 +109,8 @@
                 </div>
             </div>
             <div class="col-4">
-                @if(Model.Product.Id != 0)
-                { 
+                @if (Model.Product.Id != 0)
+                {
                     <img src="@WC.ImagePath@Model.Product.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
                 }
             </div>
@@ -121,11 +121,11 @@
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
-        }
+    }
     <script>
         $(document).ready(function () {
             $('.summernote').summernote();
-            height:250
+            height: 250
         });
         function validateInput() {
             if (document.getElementById("uploadBox").value == "") {

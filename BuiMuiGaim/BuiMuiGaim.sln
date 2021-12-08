@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuiMuiGaim", "BuiMuiGaim.csproj", "{79B0FBB4-1C57-4D5D-A424-E45DB38F509D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuiMuiGaim", "BuiMuiGaim.csproj", "{79B0FBB4-1C57-4D5D-A424-E45DB38F509D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuiMuiGaim_Utility", "..\BuiMuiGame_Utility\BuiMuiGaim_Utility.csproj", "{70188220-DE35-4E53-B099-B1C96CEF65E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{79B0FBB4-1C57-4D5D-A424-E45DB38F509D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79B0FBB4-1C57-4D5D-A424-E45DB38F509D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79B0FBB4-1C57-4D5D-A424-E45DB38F509D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

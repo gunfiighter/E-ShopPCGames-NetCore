@@ -1,7 +1,7 @@
 ﻿using BuiMuiGaim.Data;
 using BuiMuiGaim.Models;
 using BuiMuiGaim.Models.ViewModels;
-using BuiMuiGaim.Utility;
+using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;

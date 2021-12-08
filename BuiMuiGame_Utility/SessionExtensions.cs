@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BuiMuiGaim.Utility
+namespace BuiMuiGaim_Utility
 {
     public static class SessionExtensions
     {

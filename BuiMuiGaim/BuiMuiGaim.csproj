@@ -24,4 +24,8 @@
     <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BuiMuiGame_Utility\BuiMuiGaim_Utility.csproj" />
+  </ItemGroup>
+
 </Project>

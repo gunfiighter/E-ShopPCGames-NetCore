@@ -1,7 +1,7 @@
 ﻿using BuiMuiGaim.Data;
 using BuiMuiGaim.Models;
 using BuiMuiGaim.Models.ViewModels;
-using BuiMuiGaim.Utility;
+using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

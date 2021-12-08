@@ -1,5 +1,5 @@
 using BuiMuiGaim.Data;
-using BuiMuiGaim.Utility;
+using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
