@@ -1,6 +1,6 @@
-﻿using BuiMuiGaim.Data;
-using BuiMuiGaim.Models;
-using BuiMuiGaim.Models.ViewModels;
+﻿using BuiMuiGaim_Data;
+using BuiMuiGaim_Models;
+using BuiMuiGaim_Models.ViewModels;
 using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;

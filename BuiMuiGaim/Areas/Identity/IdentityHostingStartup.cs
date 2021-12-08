@@ -1,5 +1,5 @@
 ﻿using System;
-using BuiMuiGaim.Data;
+using BuiMuiGaim_Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

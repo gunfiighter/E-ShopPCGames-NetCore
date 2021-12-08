@@ -25,6 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuiMuiGaim_DataAccess\BuiMuiGaim_DataAccess.csproj" />
+    <ProjectReference Include="..\BuiMuiGaim_Models\BuiMuiGaim_Models.csproj" />
     <ProjectReference Include="..\BuiMuiGame_Utility\BuiMuiGaim_Utility.csproj" />
   </ItemGroup>
 

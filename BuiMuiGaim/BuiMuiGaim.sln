@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuiMuiGaim", "BuiMuiGaim.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuiMuiGaim_Utility", "..\BuiMuiGame_Utility\BuiMuiGaim_Utility.csproj", "{70188220-DE35-4E53-B099-B1C96CEF65E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuiMuiGaim_Models", "..\BuiMuiGaim_Models\BuiMuiGaim_Models.csproj", "{B9212F26-6E98-41DA-8DC0-F4494E9D8291}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuiMuiGaim_DataAccess", "..\BuiMuiGaim_DataAccess\BuiMuiGaim_DataAccess.csproj", "{08029B25-0D74-48DD-B03E-033FE61D66BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70188220-DE35-4E53-B099-B1C96CEF65E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9212F26-6E98-41DA-8DC0-F4494E9D8291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9212F26-6E98-41DA-8DC0-F4494E9D8291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9212F26-6E98-41DA-8DC0-F4494E9D8291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9212F26-6E98-41DA-8DC0-F4494E9D8291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08029B25-0D74-48DD-B03E-033FE61D66BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08029B25-0D74-48DD-B03E-033FE61D66BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08029B25-0D74-48DD-B03E-033FE61D66BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08029B25-0D74-48DD-B03E-033FE61D66BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

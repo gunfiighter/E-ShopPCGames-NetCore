@@ -1,4 +1,4 @@
-using BuiMuiGaim.Data;
+using BuiMuiGaim_Data;
 using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
