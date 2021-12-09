@@ -14,5 +14,7 @@ namespace BuiMuiGaim_Utility
         public const string CustomerRole = "Customer";
 
         public static string EmailAdmin = "giniyatulinm@gmail.com";
+        public static string CategoryName = "Category";
+        public static string ApplicationTypeName = "ApplicationType";
     }
 }

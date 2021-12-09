@@ -47,6 +47,7 @@ namespace BuiMuiGaim
             });
             services.AddScoped<ICategoryRepository, CategoryRepository> ();
             services.AddScoped<IApplicationTypeRepository, ApplicationTypeRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllersWithViews();
         }

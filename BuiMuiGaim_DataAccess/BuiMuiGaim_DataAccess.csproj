@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuiMuiGaim_Models\BuiMuiGaim_Models.csproj" />
+    <ProjectReference Include="..\BuiMuiGame_Utility\BuiMuiGaim_Utility.csproj" />
   </ItemGroup>
 
 </Project>
