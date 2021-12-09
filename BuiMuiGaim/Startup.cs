@@ -1,4 +1,6 @@
 using BuiMuiGaim_Data;
+using BuiMuiGaim_DataAccess.Repository;
+using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +45,9 @@ namespace BuiMuiGaim
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.AddScoped<ICategoryRepository, CategoryRepository> ();
+            services.AddScoped<IApplicationTypeRepository, ApplicationTypeRepository>();
+
             services.AddControllersWithViews();
         }
 
