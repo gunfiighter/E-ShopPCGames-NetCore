@@ -10,6 +10,5 @@ namespace BuiMuiGaim_Models.ViewModels
     {
         public InquiryHeader InquiryHeader { get; set; }
         public IEnumerable<InquiryDetail> InquiryDetails { get; set; }
-
     }
 }
