@@ -143,15 +143,16 @@ namespace BuiMuiGaim.Controllers
             _inqHRepo.Add(inquiryHeader);
             _inqHRepo.Save();
 
-            foreach(var prof in ProductUserVM.ProductList)
+            foreach(var prod in ProductUserVM.ProductList)
             {
                 InquiryDetail inquiryDetail = new InquiryDetail()
                 {
-                    InquiryHeaderId = InquiryHeader.Id,
+                    InquiryHeaderId = inquiryHeader.Id,
                     ProductId = prod.Id
                 };
+                _inqDRepo.Add(inquiryDetail);                
             }
-
+            _inqDRepo.Save();
 
             return RedirectToAction(nameof(InquiryConfirmation));
         }
