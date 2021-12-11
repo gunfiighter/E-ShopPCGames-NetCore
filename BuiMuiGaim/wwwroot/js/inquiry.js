@@ -11,8 +11,8 @@ function loadDataTable(url) {
         },
         "columns": [
             { "data": "id", "width": "10%" },
-            { "data": "fullname", "width": "10%" },
-            { "data": "phonenumber", "width": "10%" },
+            { "data": "fullName", "width": "10%" },
+            { "data": "phoneNumber", "width": "10%" },
             { "data": "email", "width": "10%" },
             {
                 "data": "id",
