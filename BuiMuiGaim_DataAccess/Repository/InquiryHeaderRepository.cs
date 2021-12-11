@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim_DataAccess.Repository
 {
-    public class InquiryHeaderRepository : Repository<Product>, IInquiryHeaderRepository
+    public class InquiryHeaderRepository : Repository<InquiryHeader>, IInquiryHeaderRepository
     {
         private readonly ApplicationDbContext _db;
 

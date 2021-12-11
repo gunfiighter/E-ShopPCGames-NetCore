@@ -1,4 +1,5 @@
 ﻿using BuiMuiGaim_Data;
+using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Models;
 using BuiMuiGaim_Models.ViewModels;
 using BuiMuiGaim_Utility;
@@ -17,19 +18,21 @@ namespace BuiMuiGaim.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        private readonly IProductRepository _prodRepo;
+        private readonly ICategoryRepository _catRepo;
+        public HomeController(ILogger<HomeController> logger, IProductRepository prodRepo, ICategoryRepository catRepo)
         {
             _logger = logger;
-            _db = db;
+            _prodRepo = prodRepo;
+            _catRepo = catRepo;
         }
 
         public IActionResult Index()
         {
             HomeVM homeVM = new HomeVM()
             {
-                Products = _db.Product.Include(x => x.Category).Include(x => x.ApplicationType),
-                Categories = _db.Category
+                Products = _prodRepo.GetAll(includeProperties: "Category,ApplicationType"),
+                Categories = _catRepo.GetAll()
             };
             return View(homeVM);
         }
@@ -56,7 +59,7 @@ namespace BuiMuiGaim.Controllers
 
             DetailsVM detailsVM = new DetailsVM()
             {
-                Product = _db.Product.Include(x => x.Category).Include(x => x.ApplicationType).FirstOrDefault(x => x.Id == id),
+                Product = _prodRepo.FirstOrDefault(i => i.Id == id, includeProperties: "Category,ApplicationType"),
                 ExistsInCart = false
             };
 

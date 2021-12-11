@@ -1,4 +1,5 @@
 ﻿using BuiMuiGaim_Data;
+using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Models;
 using BuiMuiGaim_Models.ViewModels;
 using BuiMuiGaim_Utility;
@@ -19,16 +20,25 @@ namespace BuiMuiGaim.Controllers
     [Authorize]
     public class CartController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IProductRepository _prodRepo;
+        private readonly IApplicationUserRepository _appUserRepo;
+        private readonly IInquiryHeaderRepository _inqHRepo;
+        private readonly IInquiryDetailRepository _inqDRepo;
+
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEmailSender _emailSender;
 
         [BindProperty]
         public ProductUserVM ProductUserVM { get; set; }
 
-        public CartController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment, IEmailSender emailSender)
+        public CartController(IWebHostEnvironment webHostEnvironment, IEmailSender emailSender,
+            IProductRepository prodRepo, IApplicationUserRepository appUserRepo, IInquiryHeaderRepository inqHRepo, 
+            IInquiryDetailRepository inqDRepo)
         {
-            _db = db;
+            _prodRepo = prodRepo;
+            _appUserRepo = appUserRepo;
+            _inqHRepo = inqHRepo;
+            _inqDRepo = inqDRepo;
             _webHostEnvironment = webHostEnvironment;
             _emailSender = emailSender;
         }
@@ -45,7 +55,7 @@ namespace BuiMuiGaim.Controllers
             }
 
             List<int> prodInCart = shoppingCartList.Select(x => x.ProductId).ToList();
-            IEnumerable<Product> prodList = _db.Product.Where(x => prodInCart.Contains(x.Id));
+            IEnumerable<Product> prodList = _prodRepo.GetAll(x => prodInCart.Contains(x.Id));
 
             return View(prodList);
         }
@@ -76,11 +86,11 @@ namespace BuiMuiGaim.Controllers
             }
 
             List<int> prodInCart = shoppingCartList.Select(x => x.ProductId).ToList();
-            List<Product> prodList = _db.Product.Where(x => prodInCart.Contains(x.Id)).ToList();
+            List<Product> prodList = _prodRepo.GetAll(x => prodInCart.Contains(x.Id)).ToList();
 
             ProductUserVM = new ProductUserVM()
             {
-                ApplicationUser = _db.ApplicationUser.FirstOrDefault(x => x.Id == claim.Value),
+                ApplicationUser = _appUserRepo.FirstOrDefault(x => x.Id == claim.Value),
                 ProductList = prodList
             };
 
@@ -93,6 +103,9 @@ namespace BuiMuiGaim.Controllers
             
         public async Task<IActionResult> SummaryPost(ProductUserVM ProductUserVM)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             var pathToTemplate = _webHostEnvironment.WebRootPath + Path.DirectorySeparatorChar.ToString()
                     + "templates" + Path.DirectorySeparatorChar.ToString() + "Inquiry.html";
 
@@ -117,6 +130,29 @@ namespace BuiMuiGaim.Controllers
             );
 
             await _emailSender.SendEmailAsync(WC.EmailAdmin, subject, messageBody);
+
+            InquiryHeader inquiryHeader = new InquiryHeader()
+            {
+                ApplicationUserId = claim.Value,
+                FullName = ProductUserVM.ApplicationUser.FullName,
+                Email = ProductUserVM.ApplicationUser.FullName,
+                PhoneNumber = ProductUserVM.ApplicationUser.FullName,
+                InquiryDate = DateTime.Now
+            };
+
+            _inqHRepo.Add(inquiryHeader);
+            _inqHRepo.Save();
+
+            foreach(var prof in ProductUserVM.ProductList)
+            {
+                InquiryDetail inquiryDetail = new InquiryDetail()
+                {
+                    InquiryHeaderId = InquiryHeader.Id,
+                    ProductId = prod.Id
+                };
+            }
+
+
             return RedirectToAction(nameof(InquiryConfirmation));
         }
 
