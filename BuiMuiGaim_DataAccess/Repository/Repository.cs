@@ -78,7 +78,7 @@ namespace BuiMuiGaim_DataAccess.Repository
             {
                 query.AsNoTracking();
             }
-            return query.ToList();
+            return query;
         }
 
         public void Remove(T entity)

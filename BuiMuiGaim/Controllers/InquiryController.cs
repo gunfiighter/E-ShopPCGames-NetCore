@@ -1,5 +1,6 @@
 ﻿using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Models;
+using BuiMuiGaim_Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace BuiMuiGaim.Controllers
     {
         private readonly IInquiryHeaderRepository _inqHRepo;
         private readonly IInquiryDetailRepository _inqDRepo;
+        [BindProperty]
+        public InquiryVM InquiryVM { get; set; }
         public InquiryController(IInquiryDetailRepository inqDRepo, IInquiryHeaderRepository inqHRepo)
         {
             _inqDRepo = inqDRepo;
@@ -21,6 +24,16 @@ namespace BuiMuiGaim.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            InquiryVM = new InquiryVM()
+            {
+                InquiryHeader = _inqHRepo.FirstOrDefault(x => x.Id == id),
+                InquiryDetails = _inqDRepo.GetAll(x => x.InquiryHeaderId == id, includeProperties: "Product")
+            };
+            return View(InquiryVM);
         }
 
         #region API CALLS
