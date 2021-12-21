@@ -31,7 +31,7 @@ namespace BuiMuiGaim.Controllers
             InquiryVM = new InquiryVM()
             {
                 InquiryHeader = _inqHRepo.FirstOrDefault(x => x.Id == id),
-                InquiryDetails = _inqDRepo.GetAll(x => x.InquiryHeaderId == id, includeProperties: "Product")
+                InquiryDetail = _inqDRepo.GetAll(x => x.InquiryHeaderId == id, includeProperties: "Product")
             };
             return View(InquiryVM);
         }

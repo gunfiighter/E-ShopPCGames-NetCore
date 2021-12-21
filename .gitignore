@@ -15,9 +15,10 @@
 *.userosscache
 *.sln.docstates
 
+PRIS
+
 Helpful Info
 BuiMuiGaim/wwwroot/images/product
-BuiMuiGaim/Migrations/
 BuiMuiGaim/appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

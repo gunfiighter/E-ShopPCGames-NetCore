@@ -1,32 +1,31 @@
-﻿var dataTable
+﻿var dataTable;
 
 $(document).ready(function () {
-    loadDataTable()
+    loadDataTable("GetInquiryList");
 });
 
 function loadDataTable(url) {
-    dataTable = $("#tblData").DataTable({
+    dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/inquiry/GetInquiryList"
+            "url": "/inquiry/" + url
         },
         "columns": [
             { "data": "id", "width": "10%" },
-            { "data": "fullName", "width": "10%" },
-            { "data": "phoneNumber", "width": "10%" },
-            { "data": "email", "width": "10%" },
+            { "data": "fullName", "width": "15%" },
+            { "data": "phoneNumber", "width": "15%" },
+            { "data": "email", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
-                        <div class="text-center">
-                            <a href="/Inquiry/Details/${data} class="btn btn-success text-white" style="cursor:pointer">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </div>                   
-                    `;
-                },
-                "width" : "5%"
-            },
+                            <div class="text-center">
+                                <a href="/Inquiry/Details/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i> 
+                                </a>
+                            </div>
+                           `;
+                }, "width": "5%"
+            }
         ]
-    })
+    });
 }

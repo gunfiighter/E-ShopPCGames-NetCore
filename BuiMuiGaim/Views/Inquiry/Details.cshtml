@@ -1,7 +1,7 @@
 ﻿@model BuiMuiGaim_Models.ViewModels.InquiryVM
 
     <form method="post">
-        <input hidden asp-for="InquiryHeader.Id"
+        <input hidden asp-for="InquiryHeader.Id" />
         <br />
         <div class="backgroundWhite container">
             <div class="card">
@@ -70,7 +70,7 @@
                                     <span class="text-info">Order Summary</span>
                                 </h4>
                                 <ul class="list-group mb-3">
-                                    @foreach (var prod in Model.InquiryDetails)
+                                    @foreach (var prod in Model.InquiryDetail)
                                     {
 
 
