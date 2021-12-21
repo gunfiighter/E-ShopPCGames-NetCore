@@ -135,8 +135,8 @@ namespace BuiMuiGaim.Controllers
             {
                 ApplicationUserId = claim.Value,
                 FullName = ProductUserVM.ApplicationUser.FullName,
-                Email = ProductUserVM.ApplicationUser.FullName,
-                PhoneNumber = ProductUserVM.ApplicationUser.FullName,
+                Email = ProductUserVM.ApplicationUser.Email,
+                PhoneNumber = ProductUserVM.ApplicationUser.PhoneNumber,
                 InquiryDate = DateTime.Now
             };
 
