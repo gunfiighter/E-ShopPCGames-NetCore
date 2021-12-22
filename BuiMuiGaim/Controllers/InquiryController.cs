@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim.Controllers
 {
+    [Authorize(WC.AdminRole)]
     public class InquiryController : Controller
     {
         private readonly IInquiryHeaderRepository _inqHRepo;
@@ -58,6 +59,19 @@ namespace BuiMuiGaim.Controllers
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             HttpContext.Session.Set(WC.SessionInquiryId, InquiryVM.InquiryHeader.Id);
             return RedirectToAction("Index", "Cart");
+        }
+
+        [HttpPost]
+        public IActionResult Delete()
+        {
+            InquiryHeader inquiryHeader = _inqHRepo.FirstOrDefault(x => x.Id == InquiryVM.InquiryHeader.Id);
+            IEnumerable<InquiryDetail> inquiryDetails = _inqDRepo.GetAll(x => x.InquiryHeaderId == InquiryVM.InquiryHeader.Id);
+
+            _inqDRepo.RemoveRange(inquiryDetails);
+            _inqHRepo.Remove(inquiryHeader);
+            _inqHRepo.Save();
+
+            return RedirectToAction(nameof(Index));
         }
 
         #region API CALLS
