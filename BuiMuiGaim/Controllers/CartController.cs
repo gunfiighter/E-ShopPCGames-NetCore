@@ -3,6 +3,7 @@ using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Models;
 using BuiMuiGaim_Models.ViewModels;
 using BuiMuiGaim_Utility;
+using BuiMuiGaim_Utility.BrainTree;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -28,13 +29,14 @@ namespace BuiMuiGaim.Controllers
         private readonly IOrderDetailRepository _orderDRepo;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEmailSender _emailSender;
-
+        private readonly IBrainTreeGate _brain;
         [BindProperty]
         public ProductUserVM ProductUserVM { get; set; }
 
         public CartController(IWebHostEnvironment webHostEnvironment, IEmailSender emailSender,
             IProductRepository prodRepo, IApplicationUserRepository appUserRepo, IInquiryHeaderRepository inqHRepo, 
-            IInquiryDetailRepository inqDRepo, IOrderHeaderRepository orderHRepo, IOrderDetailRepository orderDRepo)
+            IInquiryDetailRepository inqDRepo, IOrderHeaderRepository orderHRepo, IOrderDetailRepository orderDRepo,
+            IBrainTreeGate brain)
         {
             _prodRepo = prodRepo;
             _appUserRepo = appUserRepo;
@@ -44,6 +46,7 @@ namespace BuiMuiGaim.Controllers
             _emailSender = emailSender;
             _orderHRepo = orderHRepo;
             _orderDRepo = orderDRepo;
+            _brain = brain;
         }
 
         public IActionResult Index()
@@ -108,6 +111,10 @@ namespace BuiMuiGaim.Controllers
                 {
                     applicationUser = new ApplicationUser();
                 }
+
+                var gateway = _brain.GetGateway();
+                var clientToken = gateway.ClientToken.Generate();
+                ViewBag.ClientToken = clientToken;
             }
             else
             {

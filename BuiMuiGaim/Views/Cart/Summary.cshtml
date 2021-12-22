@@ -1,6 +1,6 @@
 ﻿@model BuiMuiGaim_Models.ViewModels.ProductUserVM
 
-<form method="post">
+<form method="post" id="payment-from">
     <br />
     <div class="backgroundWhiteBorder">
         <div class="container">
@@ -28,7 +28,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="ApplicationUser.FullName"type="text" required class="form-control" />
+                                        <input asp-for="ApplicationUser.FullName" type="text" required class="form-control" />
                                         <span asp-validation-for="ApplicationUser.FullName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -80,6 +80,17 @@
                                         </li>
                                     </ul>
                                 </div>
+                                @if(User.IsInRole(BuiMuiGaim_Utility.WC.AdminRole))
+                                {
+                                    <div class="col-12">
+                                        <div class="wrapper">
+                                            <div class="checkout container">
+                                                <div id="dropin-container"></div>
+                                                <input id="nonce" name="payment_method_nonce" type="hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -87,15 +98,15 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-5 offset-md-7">
-                            @if(User.IsInRole(BuiMuiGaim_Utility.WC.AdminRole))
+                            @if (User.IsInRole(BuiMuiGaim_Utility.WC.AdminRole))
                             {
-                                 <button type="submit" class="btn btn-primary form-control" id="submit-button">Submit order</button>
+                                <button type="submit" class="btn btn-primary form-control" id="submit-button">Submit order</button>
                             }
                             else
                             {
                                 <button type="submit" class="btn btn-primary form-control">Submit Inquiry</button>
                             }
-                            
+
                         </div>
                     </div>
                 </div>
@@ -107,5 +118,29 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
+    <script>
+        var form = document.querySelector('#payment-from');
+        var clien_token = "@ViewBag.ClientToken";
+
+        braintree.dropin.create({
+            authorization: clien_token,
+            container: '#dropin-container'
+        }, function (createErr, instance) {
+            form.addEventListener('submit', function () {
+                event.preventDefault();
+
+                //Add nonce to the form
+
+                instance.requestPaymentMethod(function (err, payload) {
+                    //submit payload nonce to server
+                    document.querySelector('#nonce').value = payload.nonce;
+                    from.submint();
+                });
+            });
+        });
+
+    </script>
+
 }
 

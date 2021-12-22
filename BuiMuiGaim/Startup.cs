@@ -2,6 +2,7 @@ using BuiMuiGaim_Data;
 using BuiMuiGaim_DataAccess.Repository;
 using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Utility;
+using BuiMuiGaim_Utility.BrainTree;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,7 @@ namespace BuiMuiGaim
                 .AddDefaultTokenProviders().AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSession(options =>
             {
@@ -45,6 +47,8 @@ namespace BuiMuiGaim
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.Configure<BrainTreeSettings>(Configuration.GetSection("BrainTree"));
+            services.AddSingleton<IBrainTreeGate, BrainTreeGate>();
             services.AddScoped<IGenreRepository, GenreRepository> ();
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
