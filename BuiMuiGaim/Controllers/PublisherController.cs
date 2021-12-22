@@ -40,7 +40,7 @@ namespace BuiMuiGaim.Controllers
         {
             _publisherRepo.Add(obj);
             _publisherRepo.Save();
-            TempData[WC.Success] = "Application type created succesfully";
+            TempData[WC.Success] = "Publisher created succesfully";
             return RedirectToAction("Index");
         }
 

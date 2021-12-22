@@ -65,16 +65,16 @@
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <div>
                                                     <h6 class="my-0">@Model.ProductList[i].Name</h6>
-                                                    <small class="text-muted"> Price: $@Model.ProductList[i].Price</small>
+                                                    <small class="text-muted"> Price: @string.Format("{0:c}", Model.ProductList[i].Price)</small>
                                                     <small class="text-muted"> Amout: @Model.ProductList[i].TempAmount</small>
                                                 </div>
-                                                <span class="text-muted">$@(Model.ProductList[i].Price * Model.ProductList[i].TempAmount)</span>
+                                                <span class="text-muted">@string.Format("{0:c}", Model.ProductList[i].Price * Model.ProductList[i].TempAmount)</span>
                                             </li>
                                             totalSum += Model.ProductList[i].Price * Model.ProductList[i].TempAmount;
                                         }
                                         <li class="list-group-item d-flex justify-content-between bg-light">
                                             <small class="text-info">Total amount:</small>
-                                            <strong class="text-info">$@totalSum</strong>
+                                            <strong class="text-info">@string.Format("{0:c}", totalSum)</strong>
                                         </li>
                                     </ul>
                                 </div>

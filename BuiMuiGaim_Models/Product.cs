@@ -32,7 +32,7 @@ namespace BuiMuiGaim_Models
         [ForeignKey("GenreId")]
         public virtual Genre Genre { get; set; }
 
-        [Display(Name = "Application Type")]
+        [Display(Name = "Publisher")]
         public int PublisherId { get; set; }
         [ForeignKey("PublisherId")]
         public virtual Publisher Publisher{ get; set; }

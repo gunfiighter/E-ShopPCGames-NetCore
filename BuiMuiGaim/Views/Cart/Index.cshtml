@@ -62,7 +62,7 @@
 
 
                                     <div class="col-3 col-lg-2 pt-lg-4" style="font-size:11px;">
-                                        <span style="font-size:17px;"> $@Model[i].Price</span>
+                                        <span style="font-size:17px;"> @string.Format("{0:c}", Model[i].Price)</span>
                                     </div>
 
 
@@ -70,7 +70,7 @@
                                             <input type="text" asp-for="@Model[i].TempAmount" class="form-control" />
                                         </div>
                                         <div class="col-3 col-lg-2 pt-lg-4" style="font-size:11px;">
-                                            <span style="font-size:17px;"> $@(Model[i].Price * Model[i].TempAmount)</span>
+                                            <span style="font-size:17px;"> @string.Format("{0:c}", Model[i].Price * Model[i].TempAmount)</span>
                                         </div>
                             
 
