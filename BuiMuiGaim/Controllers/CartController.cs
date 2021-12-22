@@ -71,18 +71,50 @@ namespace BuiMuiGaim.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
-        public IActionResult IndexPost()
+        public IActionResult IndexPost(IEnumerable<Product> prodList)
         {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
 
+            foreach (var prod in prodList)
+            {
+                shoppingCartList.Add(new ShoppingCart { ProductId = prod.Id, Amount = prod.TempAmount });
+            }
+            HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             return RedirectToAction(nameof(Summary));
         }
 
 
         public IActionResult Summary()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            //var userId = User.FindFirstValue(ClaimTypes.Name);
+            ApplicationUser applicationUser;
+
+            if(User.IsInRole(WC.AdminRole))
+            {
+                if(HttpContext.Session.Get<int>(WC.SessionInquiryId) != 0)
+                {
+                    //loaded with inquiry
+                    InquiryHeader inquiryHeader = _inqHRepo.FirstOrDefault(x => x.Id == HttpContext.Session.Get<int>(WC.SessionInquiryId));
+                    applicationUser = new ApplicationUser()
+                    {
+                        Email = inquiryHeader.Email,
+                        FullName = inquiryHeader.FullName,
+                        PhoneNumber = inquiryHeader.PhoneNumber
+                    };
+                }
+                else
+                {
+                    applicationUser = new ApplicationUser();
+                }
+            }
+            else
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                //var userId = User.FindFirstValue(ClaimTypes.Name);
+                applicationUser = _appUserRepo.FirstOrDefault(x => x.Id == claim.Value);
+            }
+            
+            
 
             List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
 
@@ -98,9 +130,15 @@ namespace BuiMuiGaim.Controllers
 
             ProductUserVM = new ProductUserVM()
             {
-                ApplicationUser = _appUserRepo.FirstOrDefault(x => x.Id == claim.Value),
-                ProductList = prodList
+                ApplicationUser = applicationUser,                
             };
+
+            foreach(var cartObj in shoppingCartList)
+            {
+                Product prodTemp = _prodRepo.FirstOrDefault(x => x.Id == cartObj.ProductId);
+                prodTemp.TempAmount = cartObj.Amount;
+                ProductUserVM.ProductList.Add(prodTemp);
+            }
 
             return View(ProductUserVM);
         }
@@ -184,6 +222,20 @@ namespace BuiMuiGaim.Controllers
             shoppingCartList.Remove(shoppingCartList.FirstOrDefault(x => x.ProductId == id));
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             TempData[WC.Success] = "Order deleted succesfully";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateCart(IEnumerable<Product> prodList)
+        {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+
+            foreach(var prod in prodList)
+            {
+                shoppingCartList.Add(new ShoppingCart { ProductId = prod.Id, Amount = prod.TempAmount });
+            }
+            HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             return RedirectToAction(nameof(Index));
         }
     }
