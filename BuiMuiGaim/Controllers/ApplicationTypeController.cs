@@ -40,6 +40,7 @@ namespace BuiMuiGaim.Controllers
         {
             _appTypeRepo.Add(obj);
             _appTypeRepo.Save();
+            TempData[WC.Success] = "Application type created succesfully";
             return RedirectToAction("Index");
         }
 
@@ -65,6 +66,7 @@ namespace BuiMuiGaim.Controllers
         {
             _appTypeRepo.Update(obj);
             _appTypeRepo.Save();
+            TempData[WC.Success] = "Application type updated succesfully";
             return RedirectToAction("Index");
         }
 
@@ -91,11 +93,13 @@ namespace BuiMuiGaim.Controllers
             var obj = _appTypeRepo.Find(id.GetValueOrDefault());
             if(obj == null)
             {
+                TempData[WC.Error] = "Error while deleting application type";
                 return NotFound();
             }
 
             _appTypeRepo.Remove(obj);
             _appTypeRepo.Save();
+            TempData[WC.Success] = "Application type deleted succesfully";
             return RedirectToAction("Index");
         }
     }

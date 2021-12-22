@@ -74,7 +74,7 @@ namespace BuiMuiGaim.Controllers
             return View(detailsVM);
         }
         [HttpPost, ActionName("Details")]
-        public IActionResult DetailsPost(int id)
+        public IActionResult DetailsPost(int id, DetailsVM detailsVM)
         {
             List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
             if(HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null &&
@@ -83,10 +83,10 @@ namespace BuiMuiGaim.Controllers
                 shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
             }
 
-            shoppingCartList.Add(new ShoppingCart { ProductId = id });
+            shoppingCartList.Add(new ShoppingCart { ProductId = id, Amount = detailsVM.Product.TempAmount });
 
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
-
+            TempData[WC.Success] = "Item add to cart successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -106,7 +106,7 @@ namespace BuiMuiGaim.Controllers
             }
 
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
-
+            TempData[WC.Success] = "Product removed from cart succesfully";
             return RedirectToAction(nameof(Index));
         }
     }

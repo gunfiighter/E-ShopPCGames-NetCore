@@ -2,6 +2,7 @@
 using BuiMuiGaim_Models;
 using BuiMuiGaim_Models.ViewModels;
 using BuiMuiGaim_Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim.Controllers
 {
-    [Authorize(WC.AdminRole)]
+    [Authorize(Roles = WC.AdminRole)]
     public class InquiryController : Controller
     {
         private readonly IInquiryHeaderRepository _inqHRepo;
@@ -70,7 +71,7 @@ namespace BuiMuiGaim.Controllers
             _inqDRepo.RemoveRange(inquiryDetails);
             _inqHRepo.Remove(inquiryHeader);
             _inqHRepo.Save();
-
+            TempData[WC.Success] = "Inquiry deleted succesfully";
             return RedirectToAction(nameof(Index));
         }
 

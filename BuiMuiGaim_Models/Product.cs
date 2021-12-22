@@ -9,6 +9,12 @@ namespace BuiMuiGaim_Models
 {
     public class Product
     {
+
+        public Product()
+        {
+            TempAmount = 1;
+        }
+
         [Key]
         public int Id{ get; set; }
         [Required]
@@ -17,21 +23,22 @@ namespace BuiMuiGaim_Models
         public string Description{ get; set; }
         [Required]
         [Range(1,int.MaxValue)]
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         public string Image{ get; set; }
 
         [Display(Name = "Category Type")]
         public int CategoryId{ get; set; }
-
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
         [Display(Name = "Application Type")]
         public int ApplicationTypeId { get; set; }
-
         [ForeignKey("ApplicationTypeId")]
         public virtual ApplicationType ApplicationType{ get; set; }
 
+        [NotMapped]
+        [Range(1,10000)]
+        public int TempAmount { get; set; }
     }
 }

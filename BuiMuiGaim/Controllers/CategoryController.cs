@@ -33,7 +33,7 @@ namespace BuiMuiGaim.Controllers
             return View();
         }
 
-        //Get - Create
+        //POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
@@ -42,8 +42,10 @@ namespace BuiMuiGaim.Controllers
             {
                 _catRepo.Add(obj);
                 _catRepo.Save();
+                TempData[WC.Success] = "Category created successfully";
                 return RedirectToAction("Index");
             }
+            TempData[WC.Error] = "Error while creating category";
             return View(obj);
         }
 
@@ -71,8 +73,11 @@ namespace BuiMuiGaim.Controllers
             {
                 _catRepo.Update(obj);
                 _catRepo.Save();
+                TempData[WC.Success] = "Category updated successfully";
+                
                 return RedirectToAction("Index");
             }
+            TempData[WC.Error] = "Error while editing category";
             return View(obj);
         }
 
@@ -100,10 +105,12 @@ namespace BuiMuiGaim.Controllers
             var obj = _catRepo.Find(categoryId.GetValueOrDefault());
             if(obj == null)
             {
+                TempData[WC.Error] = "Error while deleting category";
                 return NotFound();
             }
             _catRepo.Remove(obj);
             _catRepo.Save();
+            TempData[WC.Success] = "Category deleted succesfully";
             return RedirectToAction("Index");
         }
     }

@@ -55,7 +55,15 @@ namespace BuiMuiGaim.Controllers
             }
 
             List<int> prodInCart = shoppingCartList.Select(x => x.ProductId).ToList();
-            IEnumerable<Product> prodList = _prodRepo.GetAll(x => prodInCart.Contains(x.Id));
+            IList<Product> prodList = new List<Product>();
+            IEnumerable<Product> prodListTemp = _prodRepo.GetAll(x => prodInCart.Contains(x.Id));
+
+            foreach (var cartObj in shoppingCartList)
+            {
+                Product prodTemp = prodListTemp.FirstOrDefault(x => x.Id == cartObj.ProductId);
+                prodTemp.TempAmount = cartObj.Amount;
+                prodList.Add(prodTemp);
+            }
 
             return View(prodList);
         }
@@ -153,7 +161,7 @@ namespace BuiMuiGaim.Controllers
                 _inqDRepo.Add(inquiryDetail);                
             }
             _inqDRepo.Save();
-
+            TempData[WC.Success] = "Order created succesfully";
             return RedirectToAction(nameof(InquiryConfirmation));
         }
 
@@ -175,6 +183,7 @@ namespace BuiMuiGaim.Controllers
             }
             shoppingCartList.Remove(shoppingCartList.FirstOrDefault(x => x.ProductId == id));
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
+            TempData[WC.Success] = "Order deleted succesfully";
             return RedirectToAction(nameof(Index));
         }
     }

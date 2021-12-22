@@ -84,7 +84,8 @@ namespace BuiMuiGaim.Controllers
 
                     productVM.Product.Image = fileName + extension;
 
-                    _prodRepo.Add(productVM.Product);                    
+                    _prodRepo.Add(productVM.Product);
+                    TempData[WC.Success] = "Product created succesfully";
                 }
                 else
                 {
@@ -101,27 +102,29 @@ namespace BuiMuiGaim.Controllers
 
                         if(System.IO.File.Exists(oldFile))
                         {
-                            System.IO.File.Delete(oldFile);
+                            System.IO.File.Delete(oldFile);                          
+                        }
 
-                            using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                            {
-                                files[0].CopyTo(fileStream);
-                            }
+                        using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                        {
+                            files[0].CopyTo(fileStream);
+                        }
 
-                            productVM.Product.Image = fileName + extension;
-                        }                      
+                        productVM.Product.Image = fileName + extension;
                     }
                     else
                     {
                         productVM.Product.Image = objFromDb.Image;
                     }
 
+                    TempData[WC.Success] = "Product updated succesfully";
                     _prodRepo.Update(productVM.Product);
                 }
                 _prodRepo.Save();
                 return RedirectToAction("Index");
             }
 
+            TempData[WC.Error] = "Error while working with product";
             productVM.CategorySelectList = _prodRepo.GetAllDropDownList(WC.CategoryName);
             productVM.ApplicationTypeSelectList = _prodRepo.GetAllDropDownList(WC.ApplicationTypeName);
 
@@ -154,6 +157,7 @@ namespace BuiMuiGaim.Controllers
             var objFromDb = _prodRepo.Find(id.GetValueOrDefault());
             if (objFromDb == null)
             {
+                TempData[WC.Error] = "Error while deleting product";
                 return NotFound();
             }
 
@@ -168,6 +172,7 @@ namespace BuiMuiGaim.Controllers
 
             _prodRepo.Remove(objFromDb);
             _prodRepo.Save();
+            TempData[WC.Success] = "Product deleted succesfully";
             return RedirectToAction("Index");
         }
     }
