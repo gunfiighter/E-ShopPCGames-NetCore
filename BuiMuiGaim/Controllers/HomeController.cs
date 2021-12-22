@@ -19,20 +19,20 @@ namespace BuiMuiGaim.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepository _prodRepo;
-        private readonly ICategoryRepository _catRepo;
-        public HomeController(ILogger<HomeController> logger, IProductRepository prodRepo, ICategoryRepository catRepo)
+        private readonly IGenreRepository _genreRepo;
+        public HomeController(ILogger<HomeController> logger, IProductRepository prodRepo, IGenreRepository catRepo)
         {
             _logger = logger;
             _prodRepo = prodRepo;
-            _catRepo = catRepo;
+            _genreRepo = catRepo;
         }
 
         public IActionResult Index()
         {
             HomeVM homeVM = new HomeVM()
             {
-                Products = _prodRepo.GetAll(includeProperties: "Category,ApplicationType"),
-                Categories = _catRepo.GetAll()
+                Products = _prodRepo.GetAll(includeProperties: "Genre,Publisher"),
+                Genres = _genreRepo.GetAll()
             };
             return View(homeVM);
         }
@@ -59,7 +59,7 @@ namespace BuiMuiGaim.Controllers
 
             DetailsVM detailsVM = new DetailsVM()
             {
-                Product = _prodRepo.FirstOrDefault(i => i.Id == id, includeProperties: "Category,ApplicationType"),
+                Product = _prodRepo.FirstOrDefault(i => i.Id == id, includeProperties: "Genre,Publisher"),
                 ExistsInCart = false
             };
 

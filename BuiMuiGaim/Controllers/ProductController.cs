@@ -30,7 +30,7 @@ namespace BuiMuiGaim.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objList = _prodRepo.GetAll(includeProperties: "Category,ApplicationType");
+            IEnumerable<Product> objList = _prodRepo.GetAll(includeProperties: "Genre,Publisher");
 
             return View(objList);
         }
@@ -41,8 +41,8 @@ namespace BuiMuiGaim.Controllers
             ProductVM productVM = new ProductVM
             {
                 Product = new Product(),
-                CategorySelectList = _prodRepo.GetAllDropDownList(WC.CategoryName),
-                ApplicationTypeSelectList = _prodRepo.GetAllDropDownList(WC.ApplicationTypeName)
+                GenreSelectList = _prodRepo.GetAllDropDownList(WC.GenreName),
+                PublisherSelectList = _prodRepo.GetAllDropDownList(WC.PublisherName)
             };
 
             if(id == null)
@@ -125,8 +125,8 @@ namespace BuiMuiGaim.Controllers
             }
 
             TempData[WC.Error] = "Error while working with product";
-            productVM.CategorySelectList = _prodRepo.GetAllDropDownList(WC.CategoryName);
-            productVM.ApplicationTypeSelectList = _prodRepo.GetAllDropDownList(WC.ApplicationTypeName);
+            productVM.GenreSelectList = _prodRepo.GetAllDropDownList(WC.GenreName);
+            productVM.PublisherSelectList = _prodRepo.GetAllDropDownList(WC.PublisherName);
 
             return View(productVM);
         }
@@ -141,7 +141,7 @@ namespace BuiMuiGaim.Controllers
             }
 
             //Include - Eager Loading
-            Product product = _prodRepo.FirstOrDefault(x => x.Id == id, includeProperties: "Category,ApplicationType");
+            Product product = _prodRepo.FirstOrDefault(x => x.Id == id, includeProperties: "Genre,Publisher");
             if (product == null)
             {
                 return NotFound();

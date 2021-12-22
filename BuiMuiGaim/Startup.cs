@@ -45,8 +45,8 @@ namespace BuiMuiGaim
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            services.AddScoped<ICategoryRepository, CategoryRepository> ();
-            services.AddScoped<IApplicationTypeRepository, ApplicationTypeRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository> ();
+            services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IInquiryHeaderRepository, InquiryHeaderRepository>();

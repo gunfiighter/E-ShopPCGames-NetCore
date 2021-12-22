@@ -22,19 +22,19 @@ namespace BuiMuiGaim_DataAccess.Repository
 
         public IEnumerable<SelectListItem> GetAllDropDownList(string obj)
         {
-            if(obj == WC.CategoryName)
+            if(obj == WC.GenreName)
             {
-               return _db.Category.Select(x =>
+               return _db.Genre.Select(x =>
                    new SelectListItem
                    {
                        Text = x.Name,
-                       Value = x.CategoryId.ToString()
+                       Value = x.GenreId.ToString()
                    }
                );
             }
-            if(obj == WC.ApplicationTypeName)
+            if(obj == WC.PublisherName)
             {
-                return _db.ApplicationType.Select(x =>
+                return _db.Publisher.Select(x =>
                     new SelectListItem
                     {
                         Text = x.Name,

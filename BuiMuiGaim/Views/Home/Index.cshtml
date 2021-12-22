@@ -3,7 +3,7 @@
 <div class="container">
     <div class="text-center">
         <button class="btn btn-dark filter-button" data-filter="all">All</button>
-        @foreach (var obj in Model.Categories)
+        @foreach (var obj in Model.Genres)
         {
             <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ', '_')">
                 @obj.Name

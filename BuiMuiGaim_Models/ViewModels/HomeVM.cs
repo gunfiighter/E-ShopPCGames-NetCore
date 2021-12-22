@@ -8,6 +8,6 @@ namespace BuiMuiGaim_Models.ViewModels
     public class HomeVM
     {
         public IEnumerable<Product> Products { get; set; }
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Genre> Genres { get; set; }
     }
 }

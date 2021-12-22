@@ -27,15 +27,15 @@ namespace BuiMuiGaim_Models
 
         public string Image{ get; set; }
 
-        [Display(Name = "Category Type")]
-        public int CategoryId{ get; set; }
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
+        [Display(Name = "Genre Type")]
+        public int GenreId{ get; set; }
+        [ForeignKey("GenreId")]
+        public virtual Genre Genre { get; set; }
 
         [Display(Name = "Application Type")]
-        public int ApplicationTypeId { get; set; }
-        [ForeignKey("ApplicationTypeId")]
-        public virtual ApplicationType ApplicationType{ get; set; }
+        public int PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
+        public virtual Publisher Publisher{ get; set; }
 
         [NotMapped]
         [Range(1,10000)]
