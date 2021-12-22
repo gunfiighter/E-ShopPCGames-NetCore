@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim_Models
 {
-    class OrderDetail
+    public class OrderDetail
     {
 
         [Key]
@@ -26,6 +26,6 @@ namespace BuiMuiGaim_Models
         public Product Product { get; set; }
 
         public int Amount { get; set; }
-        public double TotalAmount { get; set; }
+        public double Price { get; set; }
     }
 }

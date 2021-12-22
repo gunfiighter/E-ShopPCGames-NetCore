@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuiMuiGaim_Models
 {
-    class OrderHeader
+    public class OrderHeader
     {
         [Key]
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace BuiMuiGaim_Models
 
         [Required]
         public DateTime OrderDate { get; set; }
-        [Required]
+
         public DateTime ShippingDate { get; set; }
         [Required]
         public double FinalOrderTotal { get; set; }

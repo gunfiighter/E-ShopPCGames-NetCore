@@ -4,14 +4,16 @@ using BuiMuiGaim_Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BuiMuiGaim_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211222204651_PushOrderHeaderAndDetailToDb")]
+    partial class PushOrderHeaderAndDetailToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,83 +92,6 @@ namespace BuiMuiGaim_DataAccess.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("InquiryHeader");
-                });
-
-            modelBuilder.Entity("BuiMuiGaim_Models.OrderDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderHeaderId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderHeaderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetail");
-                });
-
-            modelBuilder.Entity("BuiMuiGaim_Models.OrderHeader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("FinalOrderTotal")
-                        .HasColumnType("float");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PaymentDueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ShippingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TransactionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.ToTable("OrderHeader");
                 });
 
             modelBuilder.Entity("BuiMuiGaim_Models.Product", b =>
@@ -462,34 +387,6 @@ namespace BuiMuiGaim_DataAccess.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("BuiMuiGaim_Models.OrderDetail", b =>
-                {
-                    b.HasOne("BuiMuiGaim_Models.OrderHeader", "OrderHeader")
-                        .WithMany()
-                        .HasForeignKey("OrderHeaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BuiMuiGaim_Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrderHeader");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("BuiMuiGaim_Models.OrderHeader", b =>
-                {
-                    b.HasOne("BuiMuiGaim_Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("BuiMuiGaim_Models.Product", b =>
