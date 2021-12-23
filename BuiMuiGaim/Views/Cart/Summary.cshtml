@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="ApplicationUser.FullName" type="text" required class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.FullName" class="text-danger"></span>
+                                        
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="ApplicationUser.PhoneNumber" required type="text" class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+                                        
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="ApplicationUser.Email" required type="text" class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,36 @@
                                 });
                             });
         });
-
+        function validateInput() {
+            var app_name = document.getElementById("ApplicationUser_FullName").value;
+            var app_phone = document.getElementById("ApplicationUser_PhoneNumber").value;
+            var app_email = document.getElementById("ApplicationUser_Email").value;
+            if (app_name.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Full Name!'
+                })
+                return false;
+            }
+            if (app_phone.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Phone Number!'
+                })
+                return false;
+            }
+            if (app_email.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Email!'
+                })
+                return false;
+            }
+            return true;
+        }
     </script>
 
 }
