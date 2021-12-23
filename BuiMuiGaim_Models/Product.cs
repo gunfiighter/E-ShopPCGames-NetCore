@@ -38,7 +38,7 @@ namespace BuiMuiGaim_Models
         public virtual Publisher Publisher{ get; set; }
 
         [NotMapped]
-        [Range(1,10000)]
+        [Range(1,10000, ErrorMessage ="Amount of projects should be > 0")]
         public int TempAmount { get; set; }
     }
 }
