@@ -98,11 +98,11 @@
                                         <div class="row container">
                                             <div class="col-8">
                                                 <h6 class="my-0 text-info">@detail.Product.Name</h6>
-                                                <small class="text-muted">Price : @detail.PricePerSqFt</small><br />
-                                                <small class="text-muted">Quantity : @detail.Sqft</small>
+                                                <small class="text-muted">Price : @detail.Price</small><br />
+                                                <small class="text-muted">Quantity : @detail.Amount</small>
                                             </div>
                                             <div class="col-4">
-                                                <p class="text-success">$@(detail.PricePerSqFt * detail.Sqft)</p>
+                                                <p class="text-success">$@(detail.Price * detail.Amount)</p>
                                             </div>
                                         </div>
                                     </li>
@@ -123,20 +123,20 @@
 
                             <br />
 
-                            @if (Model.OrderHeader.OrderStatus == Rocky_Utility.WC.StatusApproved)
+                            @if (Model.OrderHeader.OrderStatus == BuiMuiGaim_Utility.WC.StatusApproved)
                             {
                                 <input type="submit" value="Start Processing"
                                        formmethod="post" asp-action="StartProcessing"
                                        class="btn btn-info form-control" />
                             }
-                            @if (Model.OrderHeader.OrderStatus == Rocky_Utility.WC.StatusInProcess)
+                            @if (Model.OrderHeader.OrderStatus == BuiMuiGaim_Utility.WC.StatusInProcess)
                             {
                                 <input type="submit" value="Ship Order"
                                        formmethod="post" asp-action="ShipOrder"
                                        class="btn btn-primary form-control" />
                             }
-                            @if (Model.OrderHeader.OrderStatus != Rocky_Utility.WC.StatusRefunded
-                               && Model.OrderHeader.OrderStatus != Rocky_Utility.WC.StatusCancelled)
+                            @if (Model.OrderHeader.OrderStatus != BuiMuiGaim_Utility.WC.StatusRefunded
+                               && Model.OrderHeader.OrderStatus != BuiMuiGaim_Utility.WC.StatusCancelled)
                             {
                                 <div class="pt-2">
                                     <button type="submit"
