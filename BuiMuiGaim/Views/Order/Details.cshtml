@@ -99,10 +99,10 @@
                                             <div class="col-8">
                                                 <h6 class="my-0 text-info">@detail.Product.Name</h6>
                                                 <small class="text-muted">Price : @detail.Price</small><br />
-                                                <small class="text-muted">Quantity : @detail.Amount</small>
+                                                <small class="text-muted">Amount : @detail.Amount</small>
                                             </div>
                                             <div class="col-4">
-                                                <p class="text-success">$@(detail.Price * detail.Amount)</p>
+                                                <p class="text-success">@(detail.Price * detail.Amount)</p>
                                             </div>
                                         </div>
                                     </li>
@@ -113,7 +113,7 @@
                                             <h5 class="text-white">TOTAL </h5>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <h5 class="text-white">$@(Model.OrderHeader.FinalOrderTotal)</h5>
+                                            <h5 class="text-white">@(Model.OrderHeader.FinalOrderTotal)</h5>
                                         </div>
                                     </div>
                                 </li>
