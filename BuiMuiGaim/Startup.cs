@@ -32,7 +32,8 @@ namespace BuiMuiGaim
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                
+            options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")
                     ));
             services.AddIdentity<IdentityUser, IdentityRole>()
