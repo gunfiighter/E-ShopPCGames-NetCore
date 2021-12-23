@@ -58,6 +58,13 @@ namespace BuiMuiGaim
             services.AddScoped<IInquiryDetailRepository, InquiryDetailRepository>();
             services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+
+            services.AddAuthentication().AddFacebook(Options =>
+            {
+                Options.AppId = "1111265283041701";
+                Options.AppSecret = "b406986eb840480950ec6573306f366c";
+            });
+
             services.AddControllersWithViews();
         }
 
