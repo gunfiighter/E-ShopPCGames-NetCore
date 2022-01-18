@@ -1,4 +1,5 @@
 using BuiMuiGaim_Data;
+using BuiMuiGaim_DataAccess.Initializer;
 using BuiMuiGaim_DataAccess.Repository;
 using BuiMuiGaim_DataAccess.Repository.IRepository;
 using BuiMuiGaim_Utility;
@@ -58,6 +59,7 @@ namespace BuiMuiGaim
             services.AddScoped<IInquiryDetailRepository, InquiryDetailRepository>();
             services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
 
             services.AddAuthentication().AddFacebook(Options =>
             {
@@ -69,7 +71,7 @@ namespace BuiMuiGaim
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -87,6 +89,7 @@ namespace BuiMuiGaim
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            dbInitializer.Initialize();
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
