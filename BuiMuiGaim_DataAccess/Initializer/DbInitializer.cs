@@ -14,7 +14,7 @@ namespace BuiMuiGaim_DataAccess.Initializer
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DbInitializer(ApplicationDbContext db, UserManager<IdentityUser> userManager, UserManager<IdentityRole> roleManager)
+        public DbInitializer(ApplicationDbContext db, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
             _userManager = userManager;
@@ -53,7 +53,7 @@ namespace BuiMuiGaim_DataAccess.Initializer
                 FullName = "Admin Tester",
                 PhoneNumber = "88005553535"
             },
-            "12a45A78"
+            "12a45A78!"
             ).GetAwaiter().GetResult();
 
             ApplicationUser user = _db.ApplicationUser.FirstOrDefault(x => x.Email == "admin@gmail.com");
